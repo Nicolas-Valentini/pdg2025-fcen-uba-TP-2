@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\AppLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\AppSaver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\LoaderPly.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\LoaderStl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\LoaderWrl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\SaverPly.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\SaverStl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\SaverWrl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\Tokenizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\TokenizerFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\TokenizerString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\AppLoader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\AppSaver.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\StrException.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\Loader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\LoaderPly.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\LoaderStl.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\LoaderWrl.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\Saver.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\SaverPly.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\SaverStl.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\SaverWrl.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\Tokenizer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\TokenizerFile.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\TokenizerString.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\io\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{7D2D87C5-0AD1-3FA2-9A0C-8CC8E5CE4737}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{1DD6CF5E-51F7-31FA-B7F0-62FE0E6DE1D5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

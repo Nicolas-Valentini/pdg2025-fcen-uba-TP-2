@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\util\BBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\util\Endian.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\util\StaticRotation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\util\CastMacros.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\util\BBox.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\util\Endian.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\util\StaticRotation.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\util\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{7D2D87C5-0AD1-3FA2-9A0C-8CC8E5CE4737}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{1DD6CF5E-51F7-31FA-B7F0-62FE0E6DE1D5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

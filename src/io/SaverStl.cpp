@@ -42,7 +42,8 @@
 #include "wrl/Shape.hpp"
 // #include "wrl/Appearance.hpp"
 // #include "wrl/Material.hpp"
-// #include "core/Faces.hpp"
+#include "core/Faces.hpp"
+#include <filesystem>;
 
 const char* SaverStl::_ext = "stl";
 SaverStl::FileType SaverStl::_fileType = SaverStl::FileType::ASCII;
@@ -65,14 +66,30 @@ bool SaverStl::_saveAscii
   // already checked that ifs.getNormalPerVertex()==false
   bool           npf_indexed = (static_cast<int>(normalIndex.size())==nF);
 
+  Faces faces = Faces(ifs.getNumberOfCoord(), coordIndex);
   fprintf(fp,"solid %s\n",solidname);
+
     
   int iF,iV0,iV1,iV2,iN;
   float x0,x1,x2,n0,n1,n2;
   for(iF=0;iF<nF;iF++) { // for each face ...
-
-    // TODO
-    // use fprintf() to print formatted text
+      fprintf(fp, "facet normal ");
+      //3 coordinates x y z for normal
+      for (int i = 0; i < 3; ++i) {
+          fprintf(fp,"%f ",normal[iF*3+i]);
+      }
+      fprintf(fp,"\n  outer loop\n");
+      for (int i = 0; i < faces.getFaceSize(iF); ++i) {
+          fprintf(fp,"    vertex ");
+          int corner = faces.getFaceVertex(iF,i);
+          //3 coordinates x y z for vertex
+          for (int j = 0; j < 3; ++j) {
+              fprintf(fp,"%f ",coord[corner*3+j]);
+          }
+          fprintf(fp,"\n");
+      }
+      fprintf(fp,"  endloop\n");
+      fprintf(fp,"endfacet\n");
 
   }
 
@@ -218,7 +235,9 @@ bool SaverStl::save(const char* filename, SceneGraph& wrl) const {
       snprintf(solidname,256,"%s",ifs_name.c_str());
     } else {
       // otherwise use filename, but first remove directory and extension
-      // TODO
+        filesystem::path filePath = filesystem::path(filename);
+        string name = filePath.stem().string();
+        snprintf(solidname,256,"%s",name.c_str());
     }
 
     if(_fileType==SaverStl::FileType::ASCII) { ///////////////////////

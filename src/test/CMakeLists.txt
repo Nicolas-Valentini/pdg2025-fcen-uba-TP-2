@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.5)
 
 # list of source files
 set(dgpTest2a_files dgpTest2a.cpp dgpPrt.cpp)

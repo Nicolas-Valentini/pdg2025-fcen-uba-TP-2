@@ -1,6 +1,6 @@
 //------------------------------------------------------------------------
 //  Copyright (C) Gabriel Taubin
-//  Time-stamp: <2025-08-05 16:34:27 taubin>
+//  Time-stamp: <2025-08-04 22:09:56 gtaubin>
 //------------------------------------------------------------------------
 //
 // Faces.cpp
@@ -36,48 +36,126 @@
 
 #include <math.h>
 #include "Faces.hpp"
+
+void Faces::createInvalidFaces_(){
+    //If the coordIndex in the constructor is invalid, Faces shouldnt work
+    m_CoordIndex = vector<int>();
+    m_FacesIndex = vector<int>();
+    m_nVerts = 0;
+}
   
 Faces::Faces(const int nV, const vector<int>& coordIndex) {
-  // TODO
+    int currentFaceSize = 0;
+    for (int i = 0; i < coordIndex.size(); ++i) {
+        int currentCorner = coordIndex[i];
+        if(currentCorner >= nV){
+            createInvalidFaces_();
+            break;
+        }
+        else{
+            if(currentCorner == -1){
+                //Its impossible to have a face with less than 2 vertex
+                if( currentFaceSize < 2){
+                    createInvalidFaces_();
+                    break;
+                }
+                else{
+                    m_CoordIndex.push_back(-1);
+                    //m_FacesIndex has the index of the end of the face i
+                    m_FacesIndex.push_back(i);
+                    currentFaceSize = 0;
+                }
+            }
+            else{
+                m_CoordIndex.push_back(currentCorner);
+                currentFaceSize++;
+            }
+
+        }
+    }
+    m_nVerts = nV;
+
+
 }
 
 int Faces::getNumberOfVertices() const {
-  // TODO
-  return 0;
+  return m_nVerts;
 }
 
 int Faces::getNumberOfFaces() const {
-  // TODO
-  return 0;
+  return m_FacesIndex.size();
 }
 
 int Faces::getNumberOfCorners() const {
-  // TODO
-  return 0;
+  return m_CoordIndex.size();
+}
+
+bool Faces::outOfRangeFace_(const int iF) const{
+    return iF < 0 || iF >= getNumberOfFaces();
 }
 
 int Faces::getFaceSize(const int iF) const {
-  // TODO
-  return 0;
+    if (outOfRangeFace_(iF))
+        return 0;
+    else{
+        if(iF == 0)
+            return m_FacesIndex[0];
+        return m_FacesIndex[iF] - m_FacesIndex[iF-1]-1;
+    }
 }
 
 int Faces::getFaceFirstCorner(const int iF) const {
-  // TODO
-  return -1;
+    if (outOfRangeFace_(iF))
+        return -1;
+    else{
+        int faceSize = getFaceSize(iF);
+        int faceIndex = m_FacesIndex[iF];
+        return m_CoordIndex[faceIndex-faceSize];
+    }
 }
 
 int Faces::getFaceVertex(const int iF, const int j) const {
-  // TODO
-  return -1;
+    int faceSize = getFaceSize(iF);
+    if (outOfRangeFace_(iF) || j<0 || j>=faceSize)
+        return -1;
+    else{
+        int faceIndex = m_FacesIndex[iF];
+        return m_CoordIndex[faceIndex-faceSize+j];
+    }
+}
+bool Faces::invalidCorner_(const int iC) const{
+    return iC < 0 || iC >= getNumberOfCorners() || m_CoordIndex[iC] == -1;
 }
 
 int Faces::getCornerFace(const int iC) const {
-  // TODO
-  return -1;
+    if(invalidCorner_(iC))
+        return -1;
+    else{
+        for (int i = 0; i < m_FacesIndex.size(); ++i) {
+            if(i == 0 && m_FacesIndex[0] > iC)
+                return 0;
+            else{
+                if(m_FacesIndex[i-1] < iC && m_FacesIndex[i] > iC)
+                    return i;
+            }
+
+        }
+    }
+    return -1;
+
 }
 
 int Faces::getNextCorner(const int iC) const {
-  // TODO
-  return -1;
+    if(invalidCorner_(iC))
+        return -1;
+    else{
+        if(m_CoordIndex[iC+1]==-1){
+            int face = getCornerFace(iC);
+            return getFaceFirstCorner(face);
+        }
+        else{
+            return m_CoordIndex[iC];
+        }
+    }
 }
 

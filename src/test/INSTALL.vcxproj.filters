@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\test\CMakeFiles\2d8293ea8cf70aa1a1d3796d84cf2ab6\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{5E2EAB70-3993-3A62-8B28-4092382B5289}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

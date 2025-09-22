@@ -111,30 +111,39 @@ int PolygonMesh::getNumberOfEdgeFaces(const int iE) const {
 }
 
 int PolygonMesh::getEdgeFace(const int iE, const int j) const {
-  // TODO
-  return -1;
+    if(iE < 0 || iE >= getNumberOfEdges()) return -1;
+    int n = getNumberOfEdgeHalfEdges(iE);
+    if(j < 0 || j >= n) return -1;
+    int c = getEdgeHalfEdge(iE, j);
+    if(c < 0) return -1;
+    return getFace(c);
 }
 
 bool PolygonMesh::isEdgeFace(const int iE, const int iF) const {
-  // TODO
-  return false;
+    if(iE < 0 || iE >= getNumberOfEdges()) return false;
+    int n = getNumberOfEdgeHalfEdges(iE);
+    for(int j=0;j<n;j++){
+        int f = getEdgeFace(iE,j);
+        if(f == iF) return true;
+    }
+    return false;
 }
 
 // classification of edges
 
 bool PolygonMesh::isBoundaryEdge(const int iE) const {
-  // TODO
-  return false;
+    if(iE < 0 || iE >= getNumberOfEdges()) return false;
+    return getNumberOfEdgeHalfEdges(iE) == 1;
 }
 
 bool PolygonMesh::isRegularEdge(const int iE) const {
-  // TODO
-  return false;
+    if(iE < 0 || iE >= getNumberOfEdges()) return false;
+    return getNumberOfEdgeHalfEdges(iE) == 2;
 }
 
 bool PolygonMesh::isSingularEdge(const int iE) const {
-  // TODO
-  return false;
+    if(iE < 0 || iE >= getNumberOfEdges()) return false;
+    return getNumberOfEdgeHalfEdges(iE) >= 3;
 }
 
 // classification of vertices
@@ -152,11 +161,17 @@ bool PolygonMesh::isSingularVertex(const int iV) const {
 // properties of the whole mesh
 
 bool PolygonMesh::isRegular() const {
-  // TODO
-  return false;
+    int nE = getNumberOfEdges();
+    for(int e=0;e<nE;e++) if(isSingularEdge(e)) return false;
+
+    int nV = getNumberOfVertices();
+    for(int v=0; v<nV; ++v) if(isSingularVertex(v)) return false;
+
+    return true;
 }
 
 bool PolygonMesh::hasBoundary() const {
-  // TODO
-  return false;
+    int nE = getNumberOfEdges();
+    for(int e=0;e<nE;e++) if(isBoundaryEdge(e)) return true;
+    return false;
 }

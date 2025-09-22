@@ -1,6 +1,6 @@
 //------------------------------------------------------------------------
 //  Copyright (C) Gabriel Taubin
-//  Time-stamp: <2025-08-05 16:34:20 taubin>
+//  Time-stamp: <2025-08-04 22:10:14 gtaubin>
 //------------------------------------------------------------------------
 //
 // Faces.hpp
@@ -89,7 +89,14 @@ public:
 
 private:
 
-  // TODO
+  vector<int> m_CoordIndex;
+  vector<int> m_FacesIndex;
+  int m_nVerts;
+
+  void createInvalidFaces_();
+  bool outOfRangeFace_(const int iF) const;
+  bool invalidCorner_(const int iC) const;
+
 
 };
 

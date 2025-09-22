@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\core\Faces.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\core\Edges.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\core\Graph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\core\HalfEdges.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\core\Partition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\core\PolygonMesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\core\PolygonMeshTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\core\Faces.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\core\Edges.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\core\Graph.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\core\HalfEdges.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\core\PolygonMesh.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\core\PolygonMeshTest.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\PC\Facu\TP2\pdg2025-fcen-uba-TP-2\src\core\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{7D2D87C5-0AD1-3FA2-9A0C-8CC8E5CE4737}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{1DD6CF5E-51F7-31FA-B7F0-62FE0E6DE1D5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
