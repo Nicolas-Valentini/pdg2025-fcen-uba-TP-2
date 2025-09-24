@@ -41,7 +41,7 @@
 // USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 // DAMAGE.
 
-#include <StrException.hpp>
+#include "io/StrException.hpp"
 #include <math.h>
 #include "HalfEdges.hpp"
 #include "Graph.hpp"
@@ -70,7 +70,6 @@ HalfEdges::HalfEdges(const int nVertices, const vector<int>&  coordIndex):
   //     _twin[iC] should be equal to the corner index of the twin half edge 
   //   if _coordIndex[iC]<0 then
   //   _face[
-  
   int nV = nVertices;
   int nC = static_cast<int>(_coordIndex.size()); // number of corners
 
@@ -94,7 +93,7 @@ HalfEdges::HalfEdges(const int nVertices, const vector<int>&  coordIndex):
   int iV0,iV1,iF=0,iE,iC,iC0=0,iC1;
   for(iC=0;iC<nC;iC++) {
 
-      if(_coordIndex[iC]>=nC || _coordIndex[iC]<-1 ){
+      if(_coordIndex[iC]>=nV || _coordIndex[iC]<-1 ){
           throw new StrException("Invalid coordIndex");
       }
 
@@ -222,6 +221,28 @@ HalfEdges::HalfEdges(const int nVertices, const vector<int>&  coordIndex):
   _firstCornerEdge.assign(nE+1, 0);
   for(int e = 0; e < nE; ++e) {
       _firstCornerEdge[e+1] = _firstCornerEdge[e] + nFacesEdge[e];
+  }
+  _cornerEdge.assign(nC-iF,-1);
+  int ic0=0,ic1;
+  for (int ic = 0; ic < _coordIndex.size(); ++ic) {
+      if (_coordIndex[ic] == -1) {
+          ic0 = ic + 1;
+          continue;
+      }
+
+      int src = _coordIndex[ic];
+      if(_coordIndex[ic+1]==-1)
+          ic1 = ic0;
+      else
+          ic1 = ic+1;
+      int dst = _coordIndex[ic1];
+
+      int edge = getEdge(src,dst);
+
+      int halfEdgeToEdgeStart = _firstCornerEdge[edge];
+
+      while(_cornerEdge[halfEdgeToEdgeStart]!=-1)halfEdgeToEdgeStart++;
+      _cornerEdge[halfEdgeToEdgeStart] = ic;
   }
 
   // 6) fill the array of arrays - the indices of corners incident to

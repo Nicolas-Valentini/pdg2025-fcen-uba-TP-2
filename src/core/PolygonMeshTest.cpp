@@ -98,13 +98,12 @@ PolygonMeshTest::PolygonMeshTest
         PolygonMesh pMesh(nVifs,coordIndex);
 
         int nV = pMesh.getNumberOfVertices();
-        int nE = pMesh.getNumberOfEdges();
-        int nF = pMesh.getNumberOfFaces();
-        int nC = pMesh.getNumberOfCorners();
-
         _ostr << indent << "        nV          = " << nV << endl;
+        int nE = pMesh.getNumberOfEdges();
         _ostr << indent << "        nE          = " << nE << endl;
+        int nF = pMesh.getNumberOfFaces();
         _ostr << indent << "        nF          = " << nF << endl;
+        int nC = pMesh.getNumberOfCorners();
         _ostr << indent << "        nC          = " << nC << endl;
 
         // print info about the polygon mesh

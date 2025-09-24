@@ -57,8 +57,17 @@ PolygonMesh::PolygonMesh(const int nVertices, const vector<int>& coordIndex):
   int iV;
   for(iV=0;iV<nV;iV++)
     _isBoundaryVertex.push_back(false);
-  // TODO
-  // - for edge boundary iE label its two end vertices as boundary 
+  // - for edge boundary iE label its two end vertices as boundary
+
+  for(int e=0;e<nE;e++){
+      int k = getNumberOfEdgeHalfEdges(e);
+      if(k==1){
+        int v0 = getVertex0(e);
+        int v1 = getVertex1(e);
+        _isBoundaryVertex[v0] = true;
+        _isBoundaryVertex[v1] = true;
+      }
+  }
   
   // 2) create a partition of the corners in the stack
   Partition partition(nC);
@@ -67,6 +76,20 @@ PolygonMesh::PolygonMesh(const int nVertices, const vector<int>& coordIndex):
   //    - join the two pairs of corresponding corners accross the edge
   //    - you need to take into account the relative orientation of
   //      the two incident half edges
+
+  for(int e = 0; e < nE; ++e){
+      int k = getNumberOfEdgeHalfEdges(e);
+      if(k == 2){
+          int a = getEdgeHalfEdge(e, 0);
+          int b = getEdgeHalfEdge(e, 1);
+
+          int a_next = getNext(a);
+          int b_next = getNext(b);
+
+          partition.join(a_next, b);
+          partition.join(b_next, a);
+      }
+  }
 
   // consistently oriented
   /* \                  / */
@@ -99,11 +122,24 @@ PolygonMesh::PolygonMesh(const int nVertices, const vector<int>& coordIndex):
   //    - note that all the corners in each subset share a common
   //      vertex index, but multiple subsets may correspond to the
   //      same vertex index, indicating that the vertex is singular
+
+  _nPartsVertex.assign(nV, 0);
+  vector<bool> seen(nC, false);
+
+  for(int ic = 0; ic < nC; ++ic){
+      if(_coordIndex[ic] < 0) continue;
+      int rep = partition.find(ic);
+      if(seen[rep]) continue;
+      seen[rep] = true;
+      int v = getSrc(ic);
+      _nPartsVertex[v] += 1;
+  }
 }
 
 int PolygonMesh::getNumberOfFaces() const {
-  // TODO
-  return 0;
+    int count = 0;
+    for(int i = 0; i < _coordIndex.size(); ++i) if(_coordIndex[i] == -1) ++count;
+    return count;
 }
 
 int PolygonMesh::getNumberOfEdgeFaces(const int iE) const {

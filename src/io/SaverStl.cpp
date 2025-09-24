@@ -93,6 +93,8 @@ bool SaverStl::_saveAscii
 
   }
 
+  fprintf(fp,"endsolid %s",solidname);
+
   return true;
 }
 

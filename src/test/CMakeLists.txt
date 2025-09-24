@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.6)
 
 # list of source files
 set(dgpTest2a_files dgpTest2a.cpp dgpPrt.cpp)
@@ -27,6 +27,7 @@ endif(WIN32)
 
 # install application
 set(BIN_DIR ${CMAKE_INSTALL_PREFIX}/bin)
+
 
 # target_link_libraries(dgpTest2 core io util wrl)
 target_link_libraries(dgpTest2a ${LIB_LIST})
