@@ -128,7 +128,11 @@ protected:
         vector<int> _firstCornerEdge;
         vector<int> _cornerEdge;
 
+        int _nF;
+
         bool _invalidCorner(const int iC) const;
+        bool _invalidEdge(const int iE) const;
+
 
 };
 

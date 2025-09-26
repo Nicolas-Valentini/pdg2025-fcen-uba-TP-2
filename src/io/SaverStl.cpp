@@ -68,10 +68,7 @@ bool SaverStl::_saveAscii
 
   Faces faces = Faces(ifs.getNumberOfCoord(), coordIndex);
   fprintf(fp,"solid %s\n",solidname);
-
-    
-  int iF,iV0,iV1,iV2,iN;
-  float x0,x1,x2,n0,n1,n2;
+  int iF;
   for(iF=0;iF<nF;iF++) { // for each face ...
       fprintf(fp, "facet normal ");
       //3 coordinates x y z for normal

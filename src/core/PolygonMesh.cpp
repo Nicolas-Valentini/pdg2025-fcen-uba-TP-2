@@ -124,22 +124,20 @@ PolygonMesh::PolygonMesh(const int nVertices, const vector<int>& coordIndex):
   //      same vertex index, indicating that the vertex is singular
 
   _nPartsVertex.assign(nV, 0);
-  vector<bool> seen(nC, false);
+  vector<bool> partSeen(nC, false);
 
   for(int ic = 0; ic < nC; ++ic){
       if(_coordIndex[ic] < 0) continue;
-      int rep = partition.find(ic);
-      if(seen[rep]) continue;
-      seen[rep] = true;
+      int part = partition.find(ic);
+      if(partSeen[part]) continue;
+      partSeen[part] = true;
       int v = getSrc(ic);
       _nPartsVertex[v] += 1;
   }
 }
 
 int PolygonMesh::getNumberOfFaces() const {
-    int count = 0;
-    for(int i = 0; i < _coordIndex.size(); ++i) if(_coordIndex[i] == -1) ++count;
-    return count;
+    return _nF;
 }
 
 int PolygonMesh::getNumberOfEdgeFaces(const int iE) const {
@@ -147,16 +145,19 @@ int PolygonMesh::getNumberOfEdgeFaces(const int iE) const {
 }
 
 int PolygonMesh::getEdgeFace(const int iE, const int j) const {
-    if(iE < 0 || iE >= getNumberOfEdges()) return -1;
-    int n = getNumberOfEdgeHalfEdges(iE);
-    if(j < 0 || j >= n) return -1;
+    if(_invalidEdge(iE)) return -1;
     int c = getEdgeHalfEdge(iE, j);
-    if(c < 0) return -1;
+    //Invalid j
+    if(c == -1) return -1;
     return getFace(c);
 }
 
+bool PolygonMesh::_invalidFace(const int iF) const{
+    return iF<0 || iF >= getNumberOfFaces();
+}
+
 bool PolygonMesh::isEdgeFace(const int iE, const int iF) const {
-    if(iE < 0 || iE >= getNumberOfEdges()) return false;
+    if(_invalidEdge(iE) || _invalidFace(iF) ) return false;
     int n = getNumberOfEdgeHalfEdges(iE);
     for(int j=0;j<n;j++){
         int f = getEdgeFace(iE,j);
@@ -168,17 +169,17 @@ bool PolygonMesh::isEdgeFace(const int iE, const int iF) const {
 // classification of edges
 
 bool PolygonMesh::isBoundaryEdge(const int iE) const {
-    if(iE < 0 || iE >= getNumberOfEdges()) return false;
+    if(_invalidEdge(iE)) return false;
     return getNumberOfEdgeHalfEdges(iE) == 1;
 }
 
 bool PolygonMesh::isRegularEdge(const int iE) const {
-    if(iE < 0 || iE >= getNumberOfEdges()) return false;
+    if(_invalidEdge(iE)) return false;
     return getNumberOfEdgeHalfEdges(iE) == 2;
 }
 
 bool PolygonMesh::isSingularEdge(const int iE) const {
-    if(iE < 0 || iE >= getNumberOfEdges()) return false;
+    if(_invalidEdge(iE)) return false;
     return getNumberOfEdgeHalfEdges(iE) >= 3;
 }
 
@@ -196,14 +197,20 @@ bool PolygonMesh::isSingularVertex(const int iV) const {
 
 // properties of the whole mesh
 
-bool PolygonMesh::isRegular() const {
+bool PolygonMesh::_hasAllRegularEdges() const{
     int nE = getNumberOfEdges();
     for(int e=0;e<nE;e++) if(isSingularEdge(e)) return false;
+    return true;
+}
 
+bool PolygonMesh::_hasAllRegularVertex() const{
     int nV = getNumberOfVertices();
     for(int v=0; v<nV; ++v) if(isSingularVertex(v)) return false;
-
     return true;
+}
+
+bool PolygonMesh::isRegular() const {
+    return _hasAllRegularEdges() && _hasAllRegularVertex();
 }
 
 bool PolygonMesh::hasBoundary() const {

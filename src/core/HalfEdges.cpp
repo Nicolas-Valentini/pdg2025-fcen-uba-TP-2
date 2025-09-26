@@ -118,12 +118,7 @@ HalfEdges::HalfEdges(const int nVertices, const vector<int>&  coordIndex):
 
     iV0 = _coordIndex[iC];
     iV1 = _coordIndex[iC1];
-    // - note that Edges::_insertEdge return the edge index number of
-     //   a newly created edge, or the index of an extisting edge
-    iE = _insertEdge(iV0,iV1); // Edges method
-    // - note that iE might be >= nFacesEdge.size() at this point, and
-    //   you may need to increase the size of nFacesEdge first
-    // - ...
+    iE = _insertEdge(iV0,iV1);
     if(iE >= nFacesEdge.size())
         nFacesEdge.push_back(1);
     else
@@ -133,6 +128,7 @@ HalfEdges::HalfEdges(const int nVertices, const vector<int>&  coordIndex):
     _face.push_back(iF);
 
   }
+  _nF = iF;
 
   int nE = getNumberOfEdges();
   
@@ -222,7 +218,7 @@ HalfEdges::HalfEdges(const int nVertices, const vector<int>&  coordIndex):
   for(int e = 0; e < nE; ++e) {
       _firstCornerEdge[e+1] = _firstCornerEdge[e] + nFacesEdge[e];
   }
-  _cornerEdge.assign(nC-iF,-1);
+  _cornerEdge.assign(nC-_nF,-1);
   int ic0=0,ic1;
   for (int ic = 0; ic < _coordIndex.size(); ++ic) {
       if (_coordIndex[ic] == -1) {
@@ -260,7 +256,7 @@ int HalfEdges::getNumberOfCorners() const {
 
 // half-edge method srcVertex()
 bool HalfEdges::_invalidCorner(const int iC) const{
-    return iC<0 || iC >= getNumberOfCorners();
+    return iC<0 || iC >= getNumberOfCorners() || _coordIndex[iC] == -1;
 }
 
 int HalfEdges::getFace(const int iC) const {
@@ -330,14 +326,17 @@ int HalfEdges::getTwin(const int iC) const {
 // represent the half edge as an array of lists, with one list
 // associated with each edge
 
+bool HalfEdges::_invalidEdge(const int iE) const{
+    return iE<0 || iE >= getNumberOfEdges();
+}
 
 int HalfEdges::getNumberOfEdgeHalfEdges(const int iE) const {
-    if(iE < 0 || iE >= getNumberOfEdges()) return 0;
+    if(_invalidEdge(iE)) return 0;
     return _firstCornerEdge[iE+1] - _firstCornerEdge[iE];
 }
 
 int HalfEdges::getEdgeHalfEdge(const int iE, const int j) const {
-    if(iE < 0 || iE >= getNumberOfEdges()) return -1;
+    if(_invalidEdge(iE)) return -1;
     int n = getNumberOfEdgeHalfEdges(iE);
     if(j < 0 || j >= n) return -1;
     return _cornerEdge[_firstCornerEdge[iE] + j];

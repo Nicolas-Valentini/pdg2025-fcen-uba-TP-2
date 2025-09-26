@@ -172,6 +172,11 @@ private:
 
   vector<int>      _nPartsVertex;
   vector<bool> _isBoundaryVertex;
+  bool _invalidFace(const int iF) const;
+  bool _hasAllRegularEdges() const;
+  bool _hasAllRegularVertex() const;
+
+
   
 };
 
