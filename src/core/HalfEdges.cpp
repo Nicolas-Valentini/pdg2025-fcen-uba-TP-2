@@ -90,7 +90,7 @@ HalfEdges::HalfEdges(const int nVertices, const vector<int>&  coordIndex):
   //    the _twin array so that all the half edges are boundary, count
   //    the number of incident faces per edge, fill the _face
   //    array, and count the number of faces incident to each edge
-  int iV0,iV1,iF=0,iE,iC,iC0=0,iC1;
+  int iV0,iV1,iF=0,iE,iC,currentFaceStart=0,iC1;
   for(iC=0;iC<nC;iC++) {
 
       if(_coordIndex[iC]>=nV || _coordIndex[iC]<-1 ){
@@ -103,7 +103,7 @@ HalfEdges::HalfEdges(const int nVertices, const vector<int>&  coordIndex):
     // - get the two vertex indices and insert an edge in the graph if
     //   not already there
     if(_coordIndex[iC] == -1){
-        iC0 = iC+1;
+        currentFaceStart = iC+1;
         _face.push_back(-1);
         iF++;
         continue;
@@ -111,7 +111,7 @@ HalfEdges::HalfEdges(const int nVertices, const vector<int>&  coordIndex):
 
 
     if(_coordIndex[iC+1]==-1)
-        iC1 = iC0;
+        iC1 = currentFaceStart;
     else
         iC1 = iC+1;
 
@@ -147,35 +147,34 @@ HalfEdges::HalfEdges(const int nVertices, const vector<int>&  coordIndex):
   //   and iC in _twin[_twin[iC]]
 
   _twin.assign(nC, -1);
-  int i0 = 0;
-  int i1;
   int currentFaceSize = 0;
+  currentFaceStart = 0;
+  for (iC = 0; iC < nC; ++iC) {
 
-  for (int i = 0; i < nC; ++i) {
-
-      if(_coordIndex[i] == -1){
-          i0 = i+1;
-          _twin[i] = currentFaceSize;
+      if(_coordIndex[iC] == -1){
+          currentFaceStart = iC+1;
+          _twin[iC] = currentFaceSize;
           currentFaceSize = 0;
           continue;
       }
       currentFaceSize++;
 
-      int src = _coordIndex[i];
-      if(_coordIndex[i+1]==-1)
-          i1 = i0;
-      else
-          i1 = i+1;
-      int dst = _coordIndex[i1];
+      iV0 = _coordIndex[iC];
 
-      int edge = getEdge(src,dst);
-      if(twinCorner[edge]<0){
-          twinCorner[edge] = i;
+      if(_coordIndex[iC+1]==-1)
+          iC1 = currentFaceStart;
+      else
+          iC1 = iC+1;
+      iV1 = _coordIndex[iC1];
+
+      iE = getEdge(iV0,iV1);
+      if(twinCorner[iE]<0){
+          twinCorner[iE] = iC;
       }
       else{
-          int other = twinCorner[edge];
-          _twin[i] = other;
-          _twin[other] = i;
+          int other = twinCorner[iE];
+          _twin[iC] = other;
+          _twin[other] = iC;
       }
   }
 
@@ -215,30 +214,30 @@ HalfEdges::HalfEdges(const int nVertices, const vector<int>&  coordIndex):
   //      _firstCornerEdge[0]=0
   //      _firstCornerEdge[iE+1] = _firstCornerEdge[iE]+nFacesEdge[iE] (1<=iE<nE)
   _firstCornerEdge.assign(nE+1, 0);
-  for(int e = 0; e < nE; ++e) {
-      _firstCornerEdge[e+1] = _firstCornerEdge[e] + nFacesEdge[e];
+  for(iE = 0; iE < nE; ++iE) {
+      _firstCornerEdge[iE+1] = _firstCornerEdge[iE] + nFacesEdge[iE];
   }
   _cornerEdge.assign(nC-_nF,-1);
-  int ic0=0,ic1;
-  for (int ic = 0; ic < _coordIndex.size(); ++ic) {
-      if (_coordIndex[ic] == -1) {
-          ic0 = ic + 1;
+  currentFaceStart = 0;
+  for (iC = 0; iC < _coordIndex.size(); ++iC) {
+      if (_coordIndex[iC] == -1) {
+          currentFaceStart = iC + 1;
           continue;
       }
 
-      int src = _coordIndex[ic];
-      if(_coordIndex[ic+1]==-1)
-          ic1 = ic0;
+      iV0 = _coordIndex[iC];
+      if(_coordIndex[iC+1]==-1)
+          iC1 = currentFaceStart;
       else
-          ic1 = ic+1;
-      int dst = _coordIndex[ic1];
+          iC1 = iC+1;
+      iV1 = _coordIndex[iC1];
 
-      int edge = getEdge(src,dst);
+      iE = getEdge(iV0,iV1);
 
-      int halfEdgeToEdgeStart = _firstCornerEdge[edge];
+      int halfEdgeToEdgeStart = _firstCornerEdge[iE];
 
       while(_cornerEdge[halfEdgeToEdgeStart]!=-1)halfEdgeToEdgeStart++;
-      _cornerEdge[halfEdgeToEdgeStart] = ic;
+      _cornerEdge[halfEdgeToEdgeStart] = iC;
   }
 
   // 6) fill the array of arrays - the indices of corners incident to

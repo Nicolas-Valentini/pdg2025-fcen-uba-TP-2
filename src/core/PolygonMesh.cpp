@@ -59,11 +59,12 @@ PolygonMesh::PolygonMesh(const int nVertices, const vector<int>& coordIndex):
     _isBoundaryVertex.push_back(false);
   // - for edge boundary iE label its two end vertices as boundary
 
-  for(int e=0;e<nE;e++){
-      int k = getNumberOfEdgeHalfEdges(e);
+  int iE;
+  for(iE=0;iE<nE;iE++){
+      int k = getNumberOfEdgeHalfEdges(iE);
       if(k==1){
-        int v0 = getVertex0(e);
-        int v1 = getVertex1(e);
+        int v0 = getVertex0(iE);
+        int v1 = getVertex1(iE);
         _isBoundaryVertex[v0] = true;
         _isBoundaryVertex[v1] = true;
       }
@@ -77,11 +78,11 @@ PolygonMesh::PolygonMesh(const int nVertices, const vector<int>& coordIndex):
   //    - you need to take into account the relative orientation of
   //      the two incident half edges
 
-  for(int e = 0; e < nE; ++e){
-      int k = getNumberOfEdgeHalfEdges(e);
+  for(iE = 0; iE < nE; ++iE){
+      int k = getNumberOfEdgeHalfEdges(iE);
       if(k == 2){
-          int a = getEdgeHalfEdge(e, 0);
-          int b = getEdgeHalfEdge(e, 1);
+          int a = getEdgeHalfEdge(iE, 0);
+          int b = getEdgeHalfEdge(iE, 1);
 
           int a_next = getNext(a);
           int b_next = getNext(b);
